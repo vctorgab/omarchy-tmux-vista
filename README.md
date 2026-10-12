@@ -44,7 +44,7 @@ tmux-vista agents     # views of a session named "agents"
 Typical agent flow:
 
 1. `Super + Enter` → terminal with the `Work` tmux session.
-2. `Ctrl+b c` → one window per agent, rename them (`Ctrl+b ,`): `claude`, `codex`, `aider`…
+2. `Ctrl+b c` → one window per agent, rename them (`Ctrl+b ,`): `pi`, `opencode`, `omp`…
 3. `Super + Alt + V` → new terminal, free to follow any agent.
 4. Repeat step 3 and tile with `Super + V` (or any layout). *Look, ma, all my agents at once!*
 
@@ -122,7 +122,7 @@ tmux-vista agents     # vistas de una sesión llamada "agents"
 Flujo típico con agentes:
 
 1. `Super + Enter` → terminal con la sesión de tmux `Work`.
-2. `Ctrl+b c` → una ventana por agente, renómbralas (`Ctrl+b ,`): `claude`, `codex`, `aider`…
+2. `Ctrl+b c` → una ventana por agente, renómbralas (`Ctrl+b ,`): `pi`, `opencode`, `omp`…
 3. `Super + Alt + V` → terminal nueva, libre para seguir a cualquier agente.
 4. Repite el paso 3 y acomoda con `Super + V` (o el layout que quieras). *¡Mira, mamá, todos mis agentes a la vez!*
 
