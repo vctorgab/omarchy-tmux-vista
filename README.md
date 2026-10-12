@@ -2,6 +2,8 @@
 
 **Watch many agents work in parallel — one terminal per agent, one tmux session to rule them all.** 🤖👁️
 
+https://github.com/vctorgab/omarchy-tmux-vista/raw/main/assets/demo.mp4
+
 Two quality-of-life tools for [Omarchy](https://omarchy.org):
 
 | Key | Action |
