@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# tmux-vista — open an independent view of a tmux session in a new terminal.
+#
+# Uses "grouped sessions": the view shares its windows (tabs) with the base
+# session, but can display a different one. Each view adapts to its own
+# terminal size and destroys itself when the terminal closes (the windows
+# stay alive in the base session).
+#
+# Perfect for watching several agents work in parallel: one session per
+# workspace, one view per agent.
+#
+# Usage: tmux-vista [base-session]   (default: Work)
+
+BASE="${1:-Work}"
+
+exists() { tmux list-sessions -F '#{session_name}' | grep -qx "$1"; }
+
+# If the base session doesn't exist, create it (same as Super+Enter)
+if ! exists "$BASE"; then
+  exec tmux new-session -A -s "$BASE"
+fi
+
+# Windows already being watched by some attached session
+used=$(tmux list-windows -a -F '#{window_index} #{window_active} #{session_attached}' \
+  | awk '$2==1 && $3>0 {print $1}')
+
+# Pick a window that no other view is watching (if any is free)
+free_w=""
+for w in $(tmux list-windows -t "$BASE" -F '#{window_index}'); do
+  if ! grep -qw "$w" <<< "$used"; then
+    free_w="$w"
+    break
+  fi
+done
+
+# Find the first free view name (Base-1, Base-2, ...)
+for i in $(seq 1 20); do
+  candidate="${BASE}-$i"
+  if ! exists "$candidate"; then
+    # Create the view ALREADY CONNECTED to this terminal and self-destroying
+    # when it closes (keep-group protects the base session from destruction).
+    if [ -n "$free_w" ]; then
+      exec tmux new-session -t "$BASE" -s "$candidate" \; \
+        set-option -t "$candidate" destroy-unattached keep-group \; \
+        select-window -t "$candidate:$free_w"
+    else
+      exec tmux new-session -t "$BASE" -s "$candidate" \; \
+        set-option -t "$candidate" destroy-unattached keep-group
+    fi
+  fi
+done
+
+echo "No free views (${BASE}-1 .. ${BASE}-20)" >&2
+exit 1
