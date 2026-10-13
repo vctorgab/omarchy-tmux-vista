@@ -1,0 +1,7 @@
+# Local tooling / scratch (not part of the project)
+.playwright-cli/
+
+# Editor & OS noise
+*.bak
+*.bak.*
+.DS_Store
