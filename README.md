@@ -31,7 +31,8 @@ A **vista** is an independent view of the same session, built on tmux *grouped s
 
 - Press `Super + Alt + V` again → another vista, another agent (`Work-1`, `Work-2`, …).
 - Each view **adapts to its own terminal size** — resize one without touching the other.
-- Close the terminal and the view **destroys itself**; the windows keep running in the base session.
+- Every tab already has a viewer? The next vista **opens a brand-new tab** and shows it.
+- Close the terminal (`Super + W`) and the view **destroys itself**; the tabs keep running in the base session.
 - Open a window in any view and it instantly exists in all of them.
 
 One session per workspace, one vista per agent. Zero copy-paste. 🎯
@@ -84,7 +85,7 @@ Removes the scripts and the keybindings block cleanly.
 
 ## How it works
 
-tmux allows several sessions to share the same set of windows — that's a *grouped session*. `tmux-vista` creates `Work-1`, `Work-2`, … attached to your current terminal with `destroy-unattached keep-group`: the view dies with its terminal, while the group protects the base session. It also picks a window that no other view is watching yet, so every vista opens on a "free" agent.
+tmux allows several sessions to share the same set of windows — that's a *grouped session*. `tmux-vista` creates `Work-1`, `Work-2`, … attached to your current terminal with `destroy-unattached keep-group`: closing the terminal (e.g. with `Super + W`) destroys the view, while `keep-group` shields the base session and its windows. Each vista picks a window that no other view is watching yet; if every window is already taken, it **creates a brand-new tab** instead, so a fresh vista always gives you a free place to work. Terminals come and go, but your tmux tabs never die.
 
 ---
 
@@ -109,7 +110,8 @@ Una **vista** es una mirada independiente de la misma sesión, construida con *s
 
 - `Super + Alt + V` otra vez → otra vista, otro agente (`Work-1`, `Work-2`, …).
 - Cada vista **se adapta al tamaño de su propia terminal**.
-- Cierras la terminal y la vista **se destruye sola**; las ventanas siguen vivas en la sesión base.
+- ¿Todas las pestañas ya tienen su visor? La próxima vista **abre una pestaña nueva** y la muestra.
+- Cierras la terminal (`Super + W`) y la vista **se destruye sola**; las pestañas siguen vivas en la sesión base.
 - Abres una ventana en cualquier vista y al instante existe en todas.
 
 Una sesión por workspace, una vista por agente. Cero copiar y pegar. 🎯
@@ -157,6 +159,10 @@ Elimina los scripts y el bloque de keybindings limpiamente.
 
 - [Omarchy](https://omarchy.org) 4.x (usa su configuración de atajos y su API de notificaciones)
 - `tmux`, `kitty`, `jq` (vienen en Omarchy)
+
+## Cómo funciona
+
+tmux permite que varias sesiones compartan el mismo conjunto de ventanas — eso es una *sesión agrupada*. `tmux-vista` crea `Work-1`, `Work-2`, … conectadas a tu terminal actual con `destroy-unattached keep-group`: al cerrar la terminal (por ejemplo con `Super + W`) la vista se destruye, mientras `keep-group` protege la sesión base y sus ventanas. Cada vista elige una ventana que ninguna otra esté mirando; si todas están ocupadas, **crea una pestaña nueva** en su lugar, así que una vista recién siempre te da un lugar libre para trabajar. Las terminales van y vienen, pero tus pestañas de tmux nunca mueren.
 
 ## Licencia
 
